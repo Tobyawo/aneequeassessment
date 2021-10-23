@@ -5,6 +5,7 @@ import com.awoyomi.aneequeassessment.model.request.LoginRequest;
 import com.awoyomi.aneequeassessment.model.request.SignupRequest;
 import com.awoyomi.aneequeassessment.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -30,7 +31,6 @@ public class CustomerController {
     }
 
 
-
     @GetMapping(path = "/login", produces = "application/json", consumes = "application/json")
     public ResponseEntity<Customer> loginUser(@RequestBody LoginRequest loginRequest){
         Customer customer = customerService.getCustomerByEmail(loginRequest.getEmail());
@@ -54,8 +54,8 @@ public class CustomerController {
     }
 
 
-    //new user signup
-    @PostMapping(path = "/customers", produces = "application/json", consumes = "application/json")
+
+    @GetMapping(path = "/customers", produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> listOfCustomer(){
         List<Customer> allCustomers = customerService.AllCustomer();
         return new ResponseEntity< >(allCustomers, HttpStatus.OK);

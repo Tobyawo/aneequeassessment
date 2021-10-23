@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  app:
+    image: 'awoyomi-aneeque-assessment:latest'
+    container_name: awoyomi-aneeque-assessment
+    build: ./
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/awoyomi
+      - SPRING_DATASOURCE_USERNAME=awoyomi
+      - SPRING_DATASOURCE_PASSWORD=awoyomi
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  postgres:
+    image: 'postgres:13.1-alpine'
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=awoyomi
+      - POSTGRES_PASSWORD=awoyomi
+
